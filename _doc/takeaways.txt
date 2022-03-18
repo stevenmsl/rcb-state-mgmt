@@ -1,0 +1,13 @@
+- ProductContext
+  - define a reducer for modifying the state #TA-01
+  - define actions that will be passed to the createDataContext
+    function to configure the dispatch functionality #TA-02
+
+- createDataContext
+  - takes the ProductContext returns a Context and a Provider
+  - Context is where you can access the state stored and the functions 
+    that can be used to modify the state #TA-03
+  - Provider is a React FC that can be used to wrap up the App
+    component so all child components can have access to the Context #TA-04
+  
+- Use the context #TA-05

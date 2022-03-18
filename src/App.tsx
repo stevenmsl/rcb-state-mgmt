@@ -1,26 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useContext, useState } from "react";
+import { Provider, Context } from "./contexts/ProductContext";
+import ProductItem from "./components/ProductItem";
 
-function App() {
+const App = () => {
+  /*TA-05 */
+  const context = useContext(Context);
+  const [name, setName] = useState("");
+  if (context === null) return <p>Oops context is null</p>;
+
+  const { state: products, addProduct } = context;
+
+  const renderProdItems = () => {
+    return (
+      <div>
+        {products.map((prod) => (
+          <ProductItem key={prod.id} item={prod} />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <p>Simple state management approach using React built-in hooks</p>
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          <button
+            onClick={() => {
+              addProduct(name);
+            }}
+          >
+            Add Product
+          </button>
+          <input value={name} onChange={(e) => setName(e.target.value)}></input>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {renderProdItems()}
       </header>
     </div>
   );
-}
+};
 
-export default App;
+const AppWithDataContext = () => {
+  return (
+    <Provider>
+      <App />
+    </Provider>
+  );
+};
+
+export default AppWithDataContext;
